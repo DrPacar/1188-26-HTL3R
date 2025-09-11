@@ -1,5 +1,7 @@
 __author__ = "Luka Pacar"
 
+import random
+
 import millerrabin
 
 
@@ -31,3 +33,18 @@ def is_prim(n):
         if n % prime == 0:
             return True
     return is_prim_millerrabin(n)
+
+def generate_prime(bits):
+    """
+    Generates a prime with a certain number of bits.
+    :param bits: number of bits.
+    :return: a prime number with the amount of given bits.
+    """
+    assert bits >= 2
+    while True:
+        candidate = random.getrandbits(bits)
+        candidate |= (1 << (bits - 1)) # no 0s in front
+        candidate |= 1 # uneven
+
+        if is_prim(candidate):
+            return candidate
