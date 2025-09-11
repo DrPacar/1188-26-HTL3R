@@ -2,7 +2,7 @@ __author__ = "Luka Pacar"
 
 import random
 
-import millerrabin
+from UE00_RSA import millerrabin
 
 
 def is_prim_millerrabin(n):
