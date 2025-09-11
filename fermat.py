@@ -1,5 +1,7 @@
 __author__ = "Luka Pacar"
+
 from collections import Counter
+
 
 def get_fermat_statistics(n: int) -> str:
     """
@@ -13,9 +15,6 @@ def get_fermat_statistics(n: int) -> str:
         c[fermat_result] += 1
 
     return f"{n} -> {(c[1] / (n - 1) * 100):.0f}% -> res[1]={c[1]}, len(res)={len(c)} - {list(c.items())}"
-
-def is_prim_millerrabin(n):
-
 
 
 if __name__ == "__main__":

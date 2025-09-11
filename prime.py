@@ -1,7 +1,11 @@
 __author__ = "Luka Pacar"
 
+import millerrabin
+
+
 def is_prim_millerrabin(n):
-    pass
+    return millerrabin.miller_rabin(n, 20)
+
 
 primes_100 = [
     2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
@@ -16,7 +20,13 @@ primes_100 = [
     467, 479, 487, 491, 499, 503, 509, 521, 523, 541
 ]
 
+
 def is_prim(n):
+    """
+    Tests if the given number is a prime
+    :param n: The number to test.
+    :return: if the number is a prime. ((1/4)^20 chance to be wrong)
+    """
     for prime in primes_100:
         if n % prime == 0:
             return True

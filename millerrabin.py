@@ -15,16 +15,16 @@ def miller_rabin(n: int, k: int):
         r += 1
 
     for _ in range(k):
-        a = random.randint(2, n-2)
+        a = random.randint(2, n - 2)
         x = pow(a, d, n)
 
-        if x == 1 or x == n-1:
+        if x == 1 or x == n - 1:
             continue
 
         break_out_of_outer_loop = False
         for _ in range(r):
             x = pow(x, 2, n)
-            if x == n-1:
+            if x == n - 1:
                 break_out_of_outer_loop = True
                 break
 
