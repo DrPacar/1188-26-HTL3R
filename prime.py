@@ -48,3 +48,8 @@ def generate_prime(bits):
 
         if is_prim(candidate):
             return candidate
+
+if __name__ == "__main__":
+    print(generate_prime(10))
+    print(generate_prime(100))
+    print(generate_prime(10000))
