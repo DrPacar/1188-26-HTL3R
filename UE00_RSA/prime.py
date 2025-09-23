@@ -31,7 +31,7 @@ def is_prim(n):
     """
     for prime in primes_100:
         if n % prime == 0:
-            return True
+            return False
     return is_prim_millerrabin(n)
 
 def generate_prime(bits):
