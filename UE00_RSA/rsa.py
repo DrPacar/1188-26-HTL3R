@@ -26,6 +26,15 @@ def generate_keys(number_of_bits: int) -> Tuple[Tuple[int, int, int], Tuple[int,
 
     :param number_of_bits: Approximate key size in bits.
     :return: (public_key, private_key) tuples with e/d, n, key_len.
+
+    >>> pub, priv = generate_keys(32)  # small key for testing
+    >>> e, n, _ = pub
+    >>> d, _, _ = priv
+    >>> for x in [0, 1, 42, 123]:
+    ...     c = pow(x, e, n)
+    ...     y = pow(c, d, n)
+    ...     assert x == y
+
     """
     half = int(number_of_bits / 2)
     p, q = generate_prime(half), generate_prime(half)
@@ -42,3 +51,9 @@ def generate_keys(number_of_bits: int) -> Tuple[Tuple[int, int, int], Tuple[int,
     public = (e, n, key_len)
     private = (d, n, key_len)
     return public, private
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
