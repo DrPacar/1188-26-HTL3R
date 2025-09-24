@@ -2,7 +2,7 @@ __author__ = "Luka Pacar"
 
 import math
 import secrets
-from typing import Tuple
+from typing import Tuple, Literal
 
 from prime import generate_prime
 
@@ -52,8 +52,24 @@ def generate_keys(number_of_bits: int) -> Tuple[Tuple[int, int, int], Tuple[int,
     private = (d, n, key_len)
     return public, private
 
+def file2ints(filename, block_size: int = 4, byte_order: Literal["little", "big"] = "big"):
+    """
+    Read a binary file and yield integer values of its byte blocks.
+
+    :param filename: Path to the binary file
+    :param block_size: Number of bytes per integer (default 4)
+    :param byte_order: Byte order: "big" or "little" (default "big")
+    :yield: Integer representation of each block of bytes
+
+    """
+    with open(filename, "rb") as f:
+        while True:
+            block = f.read(block_size)
+            if not block:
+                break
+            yield int.from_bytes(block, byte_order)
+
 
 if __name__ == "__main__":
     import doctest
-
     doctest.testmod()
