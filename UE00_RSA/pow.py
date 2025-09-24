@@ -3,12 +3,13 @@ __author__ = "Luka Pacar"
 
 def pow_iterative(a: int, b: int, n: int = None):
     """
-    Die Python-Funktion pow(a, b, n) schafft es, Potenzen großer Zahlen zu berechnen und ggf. sogar das Ergebnis modulo n zu bilden
+    The Python function pow(a, b, n) can compute powers of large numbers and,
+    if provided, also return the result modulo n.
 
     :param a: Base
     :param b: Exponent
     :param n: Modulus
-    :return: Ergebnis von a**b oder a**b % n, falls n angegeben
+    :return: Result of a**b or a**b % n if n is given
     """
     result = 1
 
@@ -23,7 +24,6 @@ def pow_iterative(a: int, b: int, n: int = None):
 
 
 if __name__ == "__main__":
-
     import time
     loop_times = 5000
 
