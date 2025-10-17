@@ -2,6 +2,7 @@ import argparse
 import subprocess
 import sys
 from collections import Counter
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 
@@ -20,7 +21,7 @@ def fetch_git_log(directory=".", author=""):
     cmd = [
         "git", "-C", directory, "log",
         "--pretty=%an;%ad", # Autor;Datum
-        "--date=format:%d.%m.%Y"
+        "--date=format:%Y-%m-%d %H:%M:%S"
     ]
     if author:
         cmd.append(f"--author={author}")
@@ -51,18 +52,30 @@ def plot_commit_counts(entries):
     Args:
         entries: List of tuples (author, date).
     """
-    dates = sorted([d for _, d in entries])
-    dates = Counter(dates) # dates als Counter
+    weekdays = ["Mo","Di","Mi","Do","Fr","Sa","So"]
 
-    plt.bar(dates.keys(), dates.values(), color='black', width=0.5)
-    plt.xlabel("Dates")
-    plt.ylabel("Number of Commits")
-    plt.xticks(fontsize=8)
+    points = []
+    for _, date_str in entries:
+        dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+        points.append((dt.weekday(), dt.hour))
 
+    counts = Counter(points)
+
+    x = [p[1] for p in counts.keys()]
+    y = [p[0] for p in counts.keys()]
+
+    sizes = [counts[p]*90 for p in counts.keys()]
+
+    plt.scatter(x, y, s=sizes, alpha=0.6, color='blue')
+    plt.xlabel("hour of day")
+    plt.ylabel("weekday")
+    plt.yticks(range(7), weekdays)  # Mo–So on y-axis
+    plt.xticks(range(0, 24, 2))           # x-axis 0,2,…,22
+    plt.title("Git Commits by Weekday and Hour")
+    plt.grid(True, linestyle='--', alpha=0.5)
     plt.show()
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
         description="statistik.py by Max Mustermann -- draws a plot with git log data"
     )
