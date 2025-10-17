@@ -36,10 +36,10 @@ ax.xaxis.set_ticks_position('bottom')
 ax.spines['bottom'].set_position(('data',0))
 ax.yaxis.set_ticks_position('left')
 ax.spines['left'].set_position(('data',0))
-ax.spines['bottom'].set_linewidth(3)
-ax.spines['left'].set_linewidth(3)
-ax.spines['top'].set_linewidth(3)
-ax.spines['right'].set_linewidth(3)
+ax.spines['bottom'].set_linewidth(4)
+ax.spines['left'].set_linewidth(4)
+ax.spines['top'].set_linewidth(4)
+ax.spines['right'].set_linewidth(4)
 
 # Markierungen
 t = 2*PI/3
@@ -65,6 +65,16 @@ for label in ax.get_xticklabels() + ax.get_yticklabels():
 
     # bei neueren matplot versionen
     ax.set_axisbelow(True)
+
+# Sinus 45° Punkte
+sin_points = [PI/4, 3*PI/4, -3*PI/4, -PI/4]
+for t in sin_points:
+    plt.scatter([t], [math.sin(t)], 50, color='purple')
+
+# Cosinus 45° Punkte
+cos_points = [PI/4, -PI/4, 3*PI/4, -3*PI/4]
+for t in cos_points:
+    plt.scatter([t], [math.cos(t)], 50, color='darkgreen')
 
 plt.title("Plot von Luka Pacar, HTL3R", fontsize=18)
 plt.savefig("plot1_pacar.png",dpi=72) # muss vor plt.show() sein, sonst ist das Bild weiß!
