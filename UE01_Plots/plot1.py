@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
-
 import math
+
+__author__ = "Luka Pacar"
+__version__ = "1.0.0"
+
 PI = math.pi
 CNT = 1024
 min_value = -PI
