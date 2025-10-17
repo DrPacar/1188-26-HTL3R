@@ -45,7 +45,7 @@ def fetch_git_log(directory=".", author=""):
     return entries
 
 
-def plot_commit_counts(entries):
+def plot_commit_counts(entries, filename=None):
     """
     Plots the number of commits per date.
 
@@ -73,7 +73,10 @@ def plot_commit_counts(entries):
     plt.xticks(range(0, 24, 2))           # x-axis 0,2,…,22
     plt.title("Git Commits by Weekday and Hour")
     plt.grid(True, linestyle='--', alpha=0.5)
-    plt.show()
+    if filename:
+        plt.savefig(filename)
+    else:
+        plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -92,4 +95,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     git_log = fetch_git_log(directory=args.directory, author=args.author)
-    plot_commit_counts(git_log)
+    plot_commit_counts(git_log, args.filename)
