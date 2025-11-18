@@ -1,5 +1,6 @@
 # Luka Pacar 2025
 from collections import deque
+import time
 
 __author__ = "Luka Pacar"
 
@@ -105,7 +106,7 @@ def mark_map(grid, given_path):
         grid[node[0]][node[1]] = 'O'
 
 if __name__ == "__main__":
-    for file in ["l1", "l2", "l3"]:
+    for file in ["l1", "l2", "l3", "l4", "l5"]:
         print(f"{file}:\n")
         with open(f"{file}.txt", "r") as f:
             lines = f.readlines()
@@ -114,16 +115,24 @@ if __name__ == "__main__":
         grid_breadth_first_search = to_map(lines).copy()
 
         # DFS
+        time_start_DFS = time.perf_counter()
         results1, path = traverse_depth_first_search(grid_depth_first_search, (1,1), pos_directions, [], set())
+        taken_time_DFS = time.perf_counter() - time_start_DFS
+
         mark_map(grid_depth_first_search, path)
         grid_depth_first_search[1][1] = 'S'
 
         print_map(grid_depth_first_search)
+        print("Time taken: " + str(taken_time_DFS/1000) + "ms")
         print()
         # BFS
+        time_start_BFS = time.perf_counter()
         results2, path = traverse_breadth_first_search(grid_breadth_first_search, (1, 1), pos_directions)
+        taken_time_BFS = time.perf_counter() - time_start_BFS
+
         mark_map(grid_breadth_first_search, path)
         grid_breadth_first_search[1][1] = 'S'
 
         print_map(grid_breadth_first_search)
+        print("Time taken: " + str(taken_time_BFS/1000) + "ms")
         print()
