@@ -74,7 +74,6 @@ class Knight(Piece):
         target_set = Knight.pos_to_targets[piece_to_check]
         return not any(position in target_set for position in other_pieces)
 
-cache = {}
 def calculate_non_attacking_pos(piece_type: type[Piece], start_pos: tuple[int, int] = (0,0), board_size: int = 8, piece_positions: list[tuple[int, int]] = None):
     """
     Calculates the amount of pieces that can be placed on the board without attacking themselves.
@@ -87,19 +86,25 @@ def calculate_non_attacking_pos(piece_type: type[Piece], start_pos: tuple[int, i
     if piece_positions is None:
         piece_positions = set()
 
-    best_position = piece_positions
+    best_positions = [frozenset(piece_positions)]
     curr_pos = start_pos
-    while curr_pos[0] != 8:
+    while curr_pos[0] != board_size:
         if piece_type.non_attacking_configuration(curr_pos, piece_positions, board_size):
             piece_positions.add(curr_pos)
+
             result = calculate_non_attacking_pos(piece_type, to_next_field(curr_pos, board_size), board_size, piece_positions)
-            if result is not None and (best_position is None or len(result) >= len(best_position)):
-                best_position = result.copy()
+            result_length = len(result[0])
+            best_positions_length = len(best_positions[0])
+            if result_length > best_positions_length:
+                best_positions = result.copy()
+            elif result_length == best_positions_length:
+                best_positions.extend(result.copy())
+
             piece_positions.remove(curr_pos)
 
         curr_pos = to_next_field(curr_pos, board_size)
 
-    return best_position
+    return best_positions
 
 def to_next_field(field: tuple[int, int], board_size: int):
     """
@@ -185,5 +190,11 @@ def print_board(board_size: int, positions: list[tuple[int, int]]):
 
 if __name__ == "__main__":
     #queens = calculate_queens(Queen, board_size=8)
-    pos = calculate_non_attacking_pos(Queen, board_size=8)
-    print_board(8, pos)
+    board_size = 8
+    positions = calculate_non_attacking_pos(Queen, board_size=board_size)
+
+    print("Number of possible configurations:", len(positions))
+    print("Possible Positions")
+    for pos in positions:
+        print_board(board_size, pos)
+        print()
