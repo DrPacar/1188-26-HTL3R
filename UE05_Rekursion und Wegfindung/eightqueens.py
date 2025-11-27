@@ -189,8 +189,7 @@ def print_board(board_size: int, positions: list[tuple[int, int]]):
         print()
 
 if __name__ == "__main__":
-    #queens = calculate_queens(Queen, board_size=8)
-    board_size = 8
+    board_size = 7
     positions = calculate_non_attacking_pos(Queen, board_size=board_size)
 
     print("Number of possible configurations:", len(positions))
