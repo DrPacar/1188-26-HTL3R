@@ -1,3 +1,6 @@
+# Luka Pacar 5CN
+__author__ = "Luka Pacar"
+
 from collections import deque
 
 knight_moves = [
@@ -16,7 +19,6 @@ def traverse_board(start_pos: tuple[int, int], destination: tuple[int, int], boa
     queue.append((start_pos, []))
 
     visited_squares = set()
-    #visited_squares.add(start_pos)
 
     while len(queue) > 0:
         curr_square, curr_path = queue.popleft()
@@ -71,6 +73,5 @@ if __name__ == "__main__":
     destination_square = coordinate_to_pos(destination, board_size)
 
     out = traverse_board(start_square, destination_square, board_size)
-    #print(out)
 
     mark_points_on_board(board_size, out)
